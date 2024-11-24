@@ -39,9 +39,9 @@
       <li *ngFor="let menuItem of mappedMenu">
         <a routerLink="/admin/dashboard">
           <button
-            routerLinkActive="bg-gradient-to-tr from-[#86469C] to-[#86469C] shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 active:opacity-[0.85]"
             (click)="toggleDropdown(menuItem)"
-            class="middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 rounded-lg text-[#3C0753] hover:[#3C0753] active:bg-white/30 flex w-full items-center gap-4 px-4 capitalize"
+            routerLinkActive="bg-gradient-to-tr from-[#86469C] to-[#86469C] shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 active:opacity-[0.85]"
+            class="middle none font-sans font-bold center transition-all text-xs py-2 rounded-lg text-[#3C0753] hover:[#3C0753] flex w-full items-center gap-4 px-4 capitalize"
             type="button"
           >
             <ng-icon
@@ -54,136 +54,54 @@
               {{ menuItem.title }}
             </p>
             <ng-icon
+              [ngClass]="{
+                'rotate-180': menuItem.isDropdownOpen
+              }"
               name="heroChevronDown"
               style="width: 20px; height: 20px; color: #3c0753"
             ></ng-icon>
           </button>
         </a>
 
+        <!-- Child Menu -->
         <div
-          [ngClass]="{
-            'dropdown-closed': !menuItem.isDropdownOpen,
-            'dropdown-open': menuItem.isDropdownOpen
-          }"
+          *ngIf="menuItem.isDropdownOpen"
           class="overflow-hidden transition-all duration-1000 ease-in-out bg-[#F1F5F9] shadow-lg rounded-md"
         >
-          <a
+          <div
             *ngFor="let child of menuItem.childMenu"
-            [routerLink]="child.link"
-            class="flex justify-between items-center px-4 py-2 text-[12px] font-medium text-[#3C0753] hover:bg-[#86469C] hover:text-white"
+            class="flex flex-col px-4 py-2"
           >
-            {{ child.title }}
-            <ng-icon
-              name="heroChevronDown"
-              style="width: 20px; height: 20px; color: #3c0753"
-            ></ng-icon>
-          </a>
+            <button
+              (click)="toggleChildDropdown(child)"
+              class="flex justify-between items-center text-[12px] font-medium text-[#3C0753] hover:bg-[#86469C] hover:text-white"
+            >
+              {{ child.title }}
+              <ng-icon
+                [ngClass]="{
+                  'rotate-180': child.isDropdownOpen
+                }"
+                name="heroChevronDown"
+                style="width: 20px; height: 20px; color: #3c0753"
+              ></ng-icon>
+            </button>
+
+            <!-- Grandchild Menu -->
+            <div
+              *ngIf="child.isDropdownOpen"
+              class="ml-6 mt-2 bg-[#E7E9EB] rounded-md"
+            >
+              <a
+                *ngFor="let grandChild of child.grandChildMenu"
+                [routerLink]="grandChild.baseURL"
+                class="flex justify-between items-center px-4 py-2 text-[12px] font-medium text-[#3C0753] hover:bg-[#86469C] hover:text-white"
+              >
+                {{ grandChild.title }}
+              </a>
+            </div>
+          </div>
         </div>
       </li>
     </ul>
-
-    <!-- <ul class="mb-4 flex flex-col gap-1">
-      <li *ngFor="let menuItem of mappedMenu">
-        <a routerLink="/admin/dashboard">
-          <button
-            routerLinkActive="bg-gradient-to-tr from-[#86469C] to-[#86469C] shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 active:opacity-[0.85]"
-            (click)="toggleDropdown(menuItem)"
-            class="middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 rounded-lg text-[#3C0753] hover:[#3C0753] active:bg-white/30 flex w-full items-center gap-4 px-4 capitalize"
-            type="button"
-          >
-            <ng-icon
-              name="heroUsers"
-              style="width: 20px; height: 20px; color: #3c0753"
-            ></ng-icon>
-            <p
-              class="block antialiased font-sans text-base leading-relaxed text-inherit font-medium text-[#3C0753] capitalize"
-            >
-              {{ menuItem.title }}
-            </p>
-            <ng-icon
-              name="heroChevronDown"
-              style="width: 20px; height: 20px; color: #3c0753"
-            ></ng-icon>
-          </button>
-        </a>
-
-        <div
-          [ngClass]="{
-            'dropdown-closed': !menuItem.isDropdownOpen,
-            'dropdown-open': menuItem.isDropdownOpen
-          }"
-          class="overflow-hidden transition-all duration-1000 ease-in-out bg-[#F1F5F9] shadow-lg rounded-md"
-        >
-          <a
-            *ngFor="let child of menuItem.childMenu"
-            [routerLink]="child.link"
-            class="block px-4 py-2 text-[12px] hover:cursor-pointer font-medium text-[#3C0753] hover:bg-[#86469C] hover:text-white"
-          >
-            {{ child.title }}
-          </a>
-          
-         
-        </div>
-      </li>
-    </ul> -->
-
-    <!-- <ul class="mb-4 flex flex-col gap-1">
-      <li>
-        <a routerLink="/admin/dashboard">
-          <button
-            routerLinkActive="bg-gradient-to-tr from-[#86469C] to-[#86469C] shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 active:opacity-[0.85]"
-            (click)="toggleDropdown()"
-            class="middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 rounded-lg text-[#3C0753] hover:[#3C0753] active:bg-white/30 flex w-full items-center gap-4 px-4 capitalize"
-            type="button"
-          >
-            <ng-icon
-              name="heroUsers"
-              style="width: 20px; height: 20px; color: #3c0753"
-            ></ng-icon>
-            <p
-              class="block antialiased font-sans text-base leading-relaxed text-inherit font-medium text-[#3C0753] capitalize"
-            >
-              Neir management
-            </p>
-            <ng-icon
-              name="heroChevronDown"
-              style="width: 20px; height: 20px; color: #3c0753"
-            ></ng-icon>
-          </button>
-        </a>
-        <div
-          [ngClass]="{
-            'dropdown-closed': !isDropdownOpen,
-            'dropdown-open': isDropdownOpen
-          }"
-          class="overflow-hidden transition-all duration-1000 ease-in-out bg-[#F1F5F9] shadow-lg rounded-md"
-        >
-          <a
-            routerLink="/admin/adduser"
-            class="block px-4 py-2 text-[12px] font-medium text-[#3C0753] hover:bg-[#86469C] hover:text-white"
-          >
-            Add User
-          </a>
-          <a
-            routerLink="/admin/usermapping"
-            class="block px-4 py-2 text-[12px] font-medium text-[#3C0753] hover:bg-[#86469C] hover:text-white"
-          >
-            User Mapping
-          </a>
-          <a
-            routerLink="/admin/userlist"
-            class="block px-4 py-2 text-[12px] font-medium text-[#3C0753] hover:bg-[#86469C] hover:text-white"
-          >
-            User List
-          </a>
-          <a
-            routerLink="/admin/changepassword"
-            class="block px-4 py-2 text-[12px] font-medium text-[#3C0753] hover:bg-[#86469C] hover:text-white"
-          >
-            Change Password
-          </a>
-        </div>
-      </li>
-    </ul> -->
   </div>
 </aside>

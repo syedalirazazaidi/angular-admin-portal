@@ -16,7 +16,7 @@ import { MenuService } from '../../services/menulist.service';
 })
 export class SidebarComponent {
   menuData: any[] = [];
-  mappedMenu: any[] = []; 
+  mappedMenu: any[] = [];
 
   constructor(private apiService: MenuService) {}
   ngOnInit(): void {
@@ -27,7 +27,7 @@ export class SidebarComponent {
       (data) => {
         this.menuData = data.result;
         this.mapMenuData();
-        // console.log(this.mappedMenu[0].childMenu[0].grandChildMenu,"pppp");
+        // console.log(this.mappedMenu[0].childMenu[0].grandChildMenu,"data structure");
         console.log(this.mappedMenu);
       },
       (error) => {
@@ -39,15 +39,15 @@ export class SidebarComponent {
     this.mappedMenu = this.menuData.map((menuItem: any) => ({
       ...menuItem,
       children: menuItem.children || [],
-      isDropdownOpen: false
+      isDropdownOpen: false,
     }));
   }
   isDropdownOpen: boolean = false;
   toggleDropdown(menuItem: any): void {
-    // Toggle dropdown state for the selected menu item
     menuItem.isDropdownOpen = !menuItem.isDropdownOpen;
   }
-  // toggleDropdown() {
-  //   this.isDropdownOpen = !this.isDropdownOpen;
-  // }
+
+  toggleChildDropdown(child: any): void {
+    child.isDropdownOpen = !child.isDropdownOpen;
+  }
 }
