@@ -6,6 +6,7 @@ import { AuthGuard } from './auth.guard';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { AdduserComponent } from './components/adduser/adduser.component';
 import { UserlistComponent } from './components/userlist/userlist.component';
+import { ChildregistrationComponent } from './components/childregistration/childregistration.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -20,6 +21,7 @@ export const routes: Routes = [
       { path: 'adduser', component: AdduserComponent },
       { path: 'userlist', component: UserlistComponent },
       { path: 'users', component: UsersComponent },
+      { path: 'childregistration', component: ChildregistrationComponent },
     ],
   },
   { path: '**', redirectTo: 'login' },
