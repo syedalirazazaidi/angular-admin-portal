@@ -1,0 +1,33 @@
+.hidden {
+  display: none;
+}
+.size-1 {
+  width: 4px;
+  height: 4px;
+}
+ul.transition-opacity {
+  opacity: 0;
+}
+.dropdown-closed {
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.dropdown-open {
+  max-height: 300px;
+  opacity: 1;
+  visibility: visible;
+}
+
+ul:not(.hidden) {
+  opacity: 1;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
