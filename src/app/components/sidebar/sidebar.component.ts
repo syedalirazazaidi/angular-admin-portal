@@ -16,29 +16,38 @@ import { MenuService } from '../../services/menulist.service';
 })
 export class SidebarComponent {
   menuData: any[] = [];
-  // constructor(private apiService: MenuService) {}
-  // ngOnInit(): void {
-  //   const claim_id = '12345';
-  //   const organisation_id = '67890';
+  mappedMenu: any[] = []; 
 
-  //   this.apiService.getMenuList(claim_id, organisation_id).subscribe(
-  //     (data) => {
-  //       console.log('Menu List:', data);
-  //       this.menuData = data;
-  //     },
-  //     (error) => {
-  //       console.error('Error fetching menu list:', error);
-  //     }
-  //   );
-  // }
+  constructor(private apiService: MenuService) {}
+  ngOnInit(): void {
+    const claim_id = '1011';
+    const organisation_id = '14';
 
-  isDropdownOpen: boolean = false;
-
-  toggleDropdown() {
-    this.isDropdownOpen = !this.isDropdownOpen;
+    this.apiService.getMenuList(claim_id, organisation_id).subscribe(
+      (data) => {
+        this.menuData = data.result;
+        this.mapMenuData();
+        // console.log(this.mappedMenu[0].childMenu[0].grandChildMenu,"pppp");
+        console.log(this.mappedMenu);
+      },
+      (error) => {
+        console.error('Error fetching menu list:', error);
+      }
+    );
   }
-  // toggleDropdown(event: MouseEvent): void {
-  //   event.stopPropagation();
+  mapMenuData(): void {
+    this.mappedMenu = this.menuData.map((menuItem: any) => ({
+      ...menuItem,
+      children: menuItem.children || [],
+      isDropdownOpen: false
+    }));
+  }
+  isDropdownOpen: boolean = false;
+  toggleDropdown(menuItem: any): void {
+    // Toggle dropdown state for the selected menu item
+    menuItem.isDropdownOpen = !menuItem.isDropdownOpen;
+  }
+  // toggleDropdown() {
   //   this.isDropdownOpen = !this.isDropdownOpen;
   // }
 }

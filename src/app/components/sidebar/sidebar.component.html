@@ -36,9 +36,102 @@
   </div>
   <div class="m-4">
     <ul class="mb-4 flex flex-col gap-1">
+      <li *ngFor="let menuItem of mappedMenu">
+        <a routerLink="/admin/dashboard">
+          <button
+            routerLinkActive="bg-gradient-to-tr from-[#86469C] to-[#86469C] shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 active:opacity-[0.85]"
+            (click)="toggleDropdown(menuItem)"
+            class="middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 rounded-lg text-[#3C0753] hover:[#3C0753] active:bg-white/30 flex w-full items-center gap-4 px-4 capitalize"
+            type="button"
+          >
+            <ng-icon
+              name="heroUsers"
+              style="width: 20px; height: 20px; color: #3c0753"
+            ></ng-icon>
+            <p
+              class="block antialiased font-sans text-base leading-relaxed text-inherit font-medium text-[#3C0753] capitalize"
+            >
+              {{ menuItem.title }}
+            </p>
+            <ng-icon
+              name="heroChevronDown"
+              style="width: 20px; height: 20px; color: #3c0753"
+            ></ng-icon>
+          </button>
+        </a>
+
+        <div
+          [ngClass]="{
+            'dropdown-closed': !menuItem.isDropdownOpen,
+            'dropdown-open': menuItem.isDropdownOpen
+          }"
+          class="overflow-hidden transition-all duration-1000 ease-in-out bg-[#F1F5F9] shadow-lg rounded-md"
+        >
+          <a
+            *ngFor="let child of menuItem.childMenu"
+            [routerLink]="child.link"
+            class="flex justify-between items-center px-4 py-2 text-[12px] font-medium text-[#3C0753] hover:bg-[#86469C] hover:text-white"
+          >
+            {{ child.title }}
+            <ng-icon
+              name="heroChevronDown"
+              style="width: 20px; height: 20px; color: #3c0753"
+            ></ng-icon>
+          </a>
+        </div>
+      </li>
+    </ul>
+
+    <!-- <ul class="mb-4 flex flex-col gap-1">
+      <li *ngFor="let menuItem of mappedMenu">
+        <a routerLink="/admin/dashboard">
+          <button
+            routerLinkActive="bg-gradient-to-tr from-[#86469C] to-[#86469C] shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 active:opacity-[0.85]"
+            (click)="toggleDropdown(menuItem)"
+            class="middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 rounded-lg text-[#3C0753] hover:[#3C0753] active:bg-white/30 flex w-full items-center gap-4 px-4 capitalize"
+            type="button"
+          >
+            <ng-icon
+              name="heroUsers"
+              style="width: 20px; height: 20px; color: #3c0753"
+            ></ng-icon>
+            <p
+              class="block antialiased font-sans text-base leading-relaxed text-inherit font-medium text-[#3C0753] capitalize"
+            >
+              {{ menuItem.title }}
+            </p>
+            <ng-icon
+              name="heroChevronDown"
+              style="width: 20px; height: 20px; color: #3c0753"
+            ></ng-icon>
+          </button>
+        </a>
+
+        <div
+          [ngClass]="{
+            'dropdown-closed': !menuItem.isDropdownOpen,
+            'dropdown-open': menuItem.isDropdownOpen
+          }"
+          class="overflow-hidden transition-all duration-1000 ease-in-out bg-[#F1F5F9] shadow-lg rounded-md"
+        >
+          <a
+            *ngFor="let child of menuItem.childMenu"
+            [routerLink]="child.link"
+            class="block px-4 py-2 text-[12px] hover:cursor-pointer font-medium text-[#3C0753] hover:bg-[#86469C] hover:text-white"
+          >
+            {{ child.title }}
+          </a>
+          
+         
+        </div>
+      </li>
+    </ul> -->
+
+    <!-- <ul class="mb-4 flex flex-col gap-1">
       <li>
         <a routerLink="/admin/dashboard">
           <button
+            routerLinkActive="bg-gradient-to-tr from-[#86469C] to-[#86469C] shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 active:opacity-[0.85]"
             (click)="toggleDropdown()"
             class="middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 rounded-lg text-[#3C0753] hover:[#3C0753] active:bg-white/30 flex w-full items-center gap-4 px-4 capitalize"
             type="button"
@@ -90,169 +183,6 @@
             Change Password
           </a>
         </div>
-      </li>
-
-      <!-- <li>    
-        <a routerLink="/admin/dashboard">
-        <button
-          (click)="toggleDropdown()"
-          routerLinkActive="bg-gradient-to-tr from-[#86469C] to-[#86469C] shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 active:opacity-[0.85]"
-          class="middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 rounded-lg text-[#3C0753] hover:[#3C0753] active:bg-white/30 flex w-full items-center gap-4 px-4 capitalize"
-          type="button"
-        >
-          <ng-icon
-            name="heroUsers"
-            style="width: 20px; height: 20px; color: #3c0753"
-          ></ng-icon>
-          <p
-            class="block antialiased font-sans text-base leading-relaxed text-inherit font-medium text-[#3C0753] capitalize"
-          >
-            Neir management
-          </p>
-          <ng-icon
-            name="heroChevronDown"
-            style="width: 20px; height: 20px; color: #3c0753"
-          ></ng-icon>
-        </button>
-        <div
-          [ngClass]="{
-            'dropdown-closed': !isDropdownOpen,
-            'dropdown-open': isDropdownOpen
-          }"
-          class="overflow-hidden transition-all duration-1000 ease-in-out bg-[#F1F5F9] shadow-lg rounded-md"
-        >
-          <a
-            routerLink="/admin/adduser"
-            class="block px-4 py-2 text-[12px] font-medium text-[#3C0753] hover:bg-[#86469C] hover:text-white"
-          >
-            Add User
-          </a>
-          <a
-            routerLink="/admin/adduser"
-            class="block px-4 py-2 text-[12px] font-medium text-[#3C0753] hover:bg-[#86469C] hover:text-white"
-          >
-            User Mapping
-          </a>
-          <a
-            routerLink="/admin/adduser"
-            class="block px-4 py-2 text-[12px] font-medium text-[#3C0753] hover:bg-[#86469C] hover:text-white"
-          >
-            User List
-          </a>
-          <a
-            routerLink="/admin/adduser"
-            class="block px-4 py-2 text-[12px] font-medium text-[#3C0753] hover:bg-[#86469C] hover:text-white"
-          >
-            Change Password
-          </a>
-        </div>
-        </a>
-      </li> -->
-      <!-- <li>
-        <a routerLink="/admin/users">
-          <button
-            routerLinkActive="bg-gradient-to-tr from-[#86469C] to-[#86469C] shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 active:opacity-[0.85]"
-            class="middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 rounded-lg text-[#3C0753] hover:[#3C0753] hover:bg-white/10 active:bg-white/30 flex w-full items-center gap-4 px-4 capitalize"
-            type="button"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              aria-hidden="true"
-              class="w-5 h-5 text-inherit"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-            <p
-              class="block antialiased font-sans text-base leading-relaxed text-inherit font-medium text-[#3C0753] capitalize"
-            >
-              Profile
-            </p>
-          </button>
-        </a>
-      </li> -->
-    </ul>
-
-    <!-- <ul class="mb-4 flex flex-col gap-1">
-      <li>
-        <a routerLink="/admin/dashboard">
-          <button
-            (click)="toggleDropdown()"
-            routerLinkActive="bg-gradient-to-tr from-[#86469C] to-[#86469C] shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 active:opacity-[0.85]"
-            class="middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 rounded-lg text-[#3C0753] hover:[#3C0753] active:bg-white/30 flex w-full items-center gap-4 px-4 capitalize"
-            type="button"
-          >
-            <ng-icon
-              name="heroUsers"
-              style="width: 20px; height: 20px; color: #3c0753"
-            ></ng-icon>
-            <p
-              class="block antialiased font-sans text-base leading-relaxed text-inherit font-medium text-[#3C0753] capitalize"
-            >
-              Neir management
-            </p>
-            <ng-icon
-              name="heroChevronDown"
-              style="width: 20px; height: 20px; color: #3c0753"
-            ></ng-icon>
-          </button>
-          <div
-            *ngIf="isDropdownOpen"
-            class="mt-2 w-full bg-white shadow-lg rounded-md"
-          >
-            <a
-              routerLink="/admin/dashboard/link1"
-              class="block px-4 py-2 text-sm text-[#3C0753] hover:bg-[#86469C] hover:text-white"
-            >
-              Link 1
-            </a>
-            <a
-              routerLink="/admin/dashboard/link2"
-              class="block px-4 py-2 text-sm text-[#3C0753] hover:bg-[#86469C] hover:text-white"
-            >
-              Link 2
-            </a>
-            <a
-              routerLink="/admin/dashboard/link3"
-              class="block px-4 py-2 text-sm text-[#3C0753] hover:bg-[#86469C] hover:text-white"
-            >
-              Link 3
-            </a>
-          </div>
-        </a>
-      </li>
-      <li>
-        <a routerLink="/admin/users">
-          <button
-            routerLinkActive="bg-gradient-to-tr from-[#86469C] to-[#86469C] shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 active:opacity-[0.85]"
-            class="middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 rounded-lg text-[#3C0753] hover:[#3C0753] hover:bg-white/10 active:bg-white/30 flex w-full items-center gap-4 px-4 capitalize"
-            type="button"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              aria-hidden="true"
-              class="w-5 h-5 text-inherit"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-            <p
-              class="block antialiased font-sans text-base leading-relaxed text-inherit font-medium text-[#3C0753] capitalize"
-            >
-              Profile
-            </p>
-          </button>
-        </a>
       </li>
     </ul> -->
   </div>

@@ -6,15 +6,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class MenuService {
-  private baseUrl = 'https://neir.staging.virtualdoc.akdndhrc.org/api';
+  private BaseUrl = 'https://neir.staging.virtualdoc.akdndhrc.org/api';
 
   constructor(private http: HttpClient) {}
 
   getMenuList(claim_id: string, organisation_id: string): Observable<any> {
-    const params = new HttpParams()
-      .set('claim', claim_id)
-      .set('organizationId', organisation_id);
-
-    return this.http.get(`${this.baseUrl}/MenuList/GetMenuList`, { params });
+    return this.http.get(
+      `${this.BaseUrl}/MenuList/GetMenuList?claim=${claim_id}&organizationId=${organisation_id}`
+    );
   }
 }

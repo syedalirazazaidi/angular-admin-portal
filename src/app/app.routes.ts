@@ -5,6 +5,7 @@ import { UsersComponent } from './components/users/users.component';
 import { AuthGuard } from './auth.guard';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { AdduserComponent } from './components/adduser/adduser.component';
+import { UserlistComponent } from './components/userlist/userlist.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -17,8 +18,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'adduser', component: AdduserComponent },
-      //    { path: 'dashboard/link2', component: Link2Component },
-      //     { path: 'dashboard/link3', component: Link3Component },
+      { path: 'userlist', component: UserlistComponent },
       { path: 'users', component: UsersComponent },
     ],
   },
