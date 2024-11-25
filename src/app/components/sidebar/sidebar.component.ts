@@ -17,21 +17,23 @@ import { MenuService } from '../../services/menulist.service';
 export class SidebarComponent {
   menuData: any[] = [];
   mappedMenu: any[] = [];
-
+  isLoading = false;
   constructor(private apiService: MenuService) {}
   ngOnInit(): void {
     const claim_id = '1011';
     const organisation_id = '14';
-
+    this.isLoading = true;
     this.apiService.getMenuList(claim_id, organisation_id).subscribe(
       (data) => {
         this.menuData = data.result;
         this.mapMenuData();
+        this.isLoading = false;
         // console.log(this.mappedMenu[0].childMenu[0].grandChildMenu,"data structure");
         console.log(this.mappedMenu);
       },
       (error) => {
         console.error('Error fetching menu list:', error);
+        this.isLoading = false;
       }
     );
   }

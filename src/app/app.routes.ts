@@ -7,6 +7,7 @@ import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.compone
 import { AdduserComponent } from './components/adduser/adduser.component';
 import { UserlistComponent } from './components/userlist/userlist.component';
 import { ChildregistrationComponent } from './components/childregistration/childregistration.component';
+import { WomenregistrationComponent } from './womenregistration/womenregistration.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -22,6 +23,7 @@ export const routes: Routes = [
       { path: 'userlist', component: UserlistComponent },
       { path: 'users', component: UsersComponent },
       { path: 'childregistration', component: ChildregistrationComponent },
+      { path: 'womenregistration', component: WomenregistrationComponent },
     ],
   },
   { path: '**', redirectTo: 'login' },
