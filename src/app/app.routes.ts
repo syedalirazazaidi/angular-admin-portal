@@ -8,6 +8,7 @@ import { AdduserComponent } from './components/adduser/adduser.component';
 import { UserlistComponent } from './components/userlist/userlist.component';
 import { ChildregistrationComponent } from './components/childregistration/childregistration.component';
 import { WomenregistrationComponent } from './womenregistration/womenregistration.component';
+import { ChangepasswordComponent } from './components/changepassword/changepassword.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -24,6 +25,8 @@ export const routes: Routes = [
       { path: 'users', component: UsersComponent },
       { path: 'childregistration', component: ChildregistrationComponent },
       { path: 'womenregistration', component: WomenregistrationComponent },
+      { path: 'changepassword', component: ChangepasswordComponent },
+
     ],
   },
   { path: '**', redirectTo: 'login' },
